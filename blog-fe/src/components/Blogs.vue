@@ -4,19 +4,25 @@ import BlogManager from './BlogManager.vue';
 import Header from './Header.vue';
 import BlogEdit from './BlogEdit.vue';
 
-// defineProps({
-//   msg: String,
-// })
-
-const count = ref(0)
+const blogId = ref(0)
 const isEditMode = ref(false);
+
+const onOpenEditMode = (id) => {
+  if (id != 0) {
+    if (blogId.value = id)
+      isEditMode.value = true;
+  }
+}
+const onCloseEditMode = () => {
+  isEditMode.value = false;
+}
 </script>
 
 <template>
   <div>
     <Header />
-    <BlogManager v-if="!isEditMode"/>
-    <BlogEdit v-else/>
+    <BlogManager v-if="!isEditMode" @open="onOpenEditMode" />
+    <BlogEdit v-else :id="blogId" @close="onCloseEditMode" />
   </div>
 </template>
 

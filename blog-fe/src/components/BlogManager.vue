@@ -1,5 +1,5 @@
 <template>
-    <div class="w-[960px]  rounded flex-col justify-center">
+    <div class="w-full lg:w-[960px]  rounded flex-col justify-center">
 
         <BlogAdd />
         <BlogCard v-for="(c, index) in cardList" :key="index" @edit="onEdit" :id="c.id" :title="c.title" :date="c.date"

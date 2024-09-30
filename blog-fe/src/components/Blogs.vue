@@ -21,8 +21,10 @@ const onCloseEditMode = () => {
 <template>
   <div>
     <Header />
-    <BlogManager v-if="!isEditMode" @open="onOpenEditMode" />
-    <BlogEdit v-else :id="blogId" @close="onCloseEditMode" />
+    <div class="w-full lg:w-[980px] flex justify-center items-center">
+      <BlogManager v-if="!isEditMode" @open="onOpenEditMode" />
+      <BlogEdit v-else :id="blogId" @close="onCloseEditMode" />
+    </div>
   </div>
 </template>
 

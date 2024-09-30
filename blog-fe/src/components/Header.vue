@@ -5,14 +5,14 @@ import { ref } from 'vue'
 </script>
 
 <template>
-    <p>Header</p>
+    <!-- <p>Header</p> -->
     <!-- <head>
         <link href="http://localhost:3000/docs">
 
     </head> -->
-    <!-- <div class="m-0 p-0 bg-blue-300">
-        <h1>Header</h1>
-    </div> -->
+    <div class="w-screen h-12 mb-4 bg-blue-300">
+        <h2 class="h-full font-bold border" >Blog</h2>
+    </div>
 </template>
 
 <style scoped></style>

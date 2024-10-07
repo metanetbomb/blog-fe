@@ -1,11 +1,15 @@
 <script setup>
 import { ref } from 'vue'
+import { useStore } from 'vuex';
 import BlogManager from './BlogManager.vue';
 import Header from './Header.vue';
 import BlogEdit from './BlogEdit.vue';
 
 const blogId = ref(0)
 const isEditMode = ref(false);
+
+const store = useStore();
+store.dispatch("tags/setTags", "token");
 
 const onOpenEditMode = (id) => {
   if (id != 0) {
@@ -19,9 +23,9 @@ const onCloseEditMode = () => {
 </script>
 
 <template>
-  <div>
-    <Header />
-    <div class="w-full lg:w-[980px] flex justify-center items-center">
+  <div class="flex justify-center">
+    <!-- <Header /> -->
+    <div class="w-full lg:w-[980px] flex justify-center items-center mt-2">
       <BlogManager v-if="!isEditMode" @open="onOpenEditMode" />
       <BlogEdit v-else :id="blogId" @close="onCloseEditMode" />
     </div>

@@ -11,6 +11,8 @@ const state = () => ({
   blogCards: [],
   page: 1,
   pageSize: 10,
+  blog: {},//current blog data
+  tags: {}
 })
 
 // getters
@@ -25,7 +27,7 @@ const getters = {
   getRoundDetailsByRoomNo: (state) => (number) => {
     return state.roundHistory.find(round => round.roundNumber == number);
   },
-  getBlogCards: state => state.blogCards,
+  getBlogCards: state => state.blogCards.sort((a, b) => b.id - a.id),
 }
 
 // actions
@@ -43,6 +45,19 @@ const actions = {
     const res = await services.postBlogs(title, url);
     console.log(res);
     if (res.status == 201) {
+      const cards = await services.getBlogCards(state.page, state.pageSize);
+      if (cards.status == 200) {
+        console.log(cards);
+        console.log(cards.data);
+        commit(types.SET_BLOG_CARDS, cards.data);
+      }
+    }
+  },
+  async updateBlog({ commit, state }, { id, title, url }) {
+    console.log(title + ":" + url);
+    const res = await services.patchBlogs(id, title, url);
+    console.log(res);
+    if (res.status == 204) {
       const cards = await services.getBlogCards(state.page, state.pageSize);
       if (cards.status == 200) {
         console.log(cards);
@@ -81,10 +96,40 @@ const actions = {
       commit(types.SET_BLOG_STATUS, { id: id, status: status });
     }
   },
+
+  //for edit mode
+  //get data from be and save to store
+  async setBlog({ commit, state }, { id }) {
+    const res = await services.getBlogs(id);
+    if (res.status == 200) {
+      console.log(res);
+      commit(types.SET_BLOG, res.data);
+      return res.data;
+    }
+    else null;
+  },
+
+  async setTags({ commit, state }, { id, status }) {
+    const blog_id = state.blog.id;
+
+
+    const bcard = state.blogCards.find(card => card.id === id);
+    console.log(id + " : " + status);
+    const res = await services.patchBlogCard(id, bcard.is_pined, status);
+    console.log(res);
+    if (res.status == 200) {
+      console.log(res);
+      commit(types.SET_BLOG_STATUS, { id: id, status: status });
+    }
+  },
 }
 
 // mutations
 const mutations = {
+  [types.SET_BLOG](state, value) {
+    state.blog = value;
+    console.log("set blog done.");
+  },
   [types.SET_BLOG_CARDS](state, value) {
     state.blogCards = value;
     console.log("set cards done.");
@@ -95,6 +140,11 @@ const mutations = {
     console.log("pin update");
   },
   [types.SET_BLOG_STATUS](state, { id, status }) {
+    const bcard = state.blogCards.find(card => card.id === id);
+    bcard.status = status;
+    console.log("status update");
+  },
+  [types.SET_BLOG_TAGS](state, { id, status }) {
     const bcard = state.blogCards.find(card => card.id === id);
     bcard.status = status;
     console.log("status update");

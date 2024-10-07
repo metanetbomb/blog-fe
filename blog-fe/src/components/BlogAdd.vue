@@ -1,6 +1,6 @@
 <template>
 
-    <div class="flex justify-center items-center border border-yellow-400 rounded-md py-6 px-10 mb-4 mx-4">
+    <div class="flex justify-center items-center border rounded-md py-6 px-10 mb-4 mx-4">
         <p class="w-36 align-middle">Add new Blogs: </p>
         <input class="text-center h-10 border-2 border-gray-500 rounded mr-2" type="text" placeholder="Blog title"
             v-model="title" />

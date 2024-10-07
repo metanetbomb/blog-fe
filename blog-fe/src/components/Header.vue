@@ -10,8 +10,10 @@ import { ref } from 'vue'
         <link href="http://localhost:3000/docs">
 
     </head> -->
-    <div class="w-screen h-12 mb-4 bg-blue-300">
-        <h2 class="h-full font-bold border" >Blog</h2>
+    <div class="w-screen h-12 mb-4 bg-blue-300 flex justify-start">
+        <p class="h-full font-bold border" >BlogView</p>
+        <p class="h-full font-bold border" >Blog</p>
+        <p class="h-full font-bold border" >Tag</p>
     </div>
 </template>
 

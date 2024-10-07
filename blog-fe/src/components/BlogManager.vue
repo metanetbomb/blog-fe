@@ -26,12 +26,16 @@ const store = useStore();
 //     { id: 5, date: "2024-08-20", title: "Blong05", pined: false, status: "show" },
 //     { id: 6, date: "2024-08-20", title: "Blong06", pined: false, status: "show" },
 // ]);
-
+// store.dispatch("tags/setTags", "token");
 store.dispatch("blogs/setBlogCards");
 const cardList = computed(() => store.getters['blogs/getBlogCards']);
 
-const onEdit = (id) => {
-    emit("open", id);
+const onEdit = async (id) => {
+
+    const blogData = await store.dispatch("blogs/setBlog", id);
+    if (blogData) {
+        emit("open", id);
+    }
 }
 
 </script>

@@ -6,6 +6,7 @@ import { ref } from 'vue'
 
 <template>
     <h1>bomb</h1>
+      <h2>bomb2</h2>
     <!-- <p>Header</p> -->
     <!-- <head>
         <link href="http://localhost:3000/docs">
